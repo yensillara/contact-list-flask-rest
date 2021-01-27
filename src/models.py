@@ -18,21 +18,11 @@ db = SQLAlchemy()
             # do not serialize the password, its a security breach
         #}
 
-class Human(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True)
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "name":self.name,
-        }
-
 class Contact(db.Model):
-    id = db.Column(db.Integer)
+    id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(30), nullable=False)
-    email = db.Column(db.String(30), primary_key=True, nullable=False)
-    adress = db.Column(db.String(30), nullable=False)
+    email = db.Column(db.String(30), unique=True, nullable=False)
+    address = db.Column(db.String(30), nullable=False)
     phone = db.Column(db.String(30), nullable=False)
 
     def serialize(self):
@@ -40,6 +30,6 @@ class Contact(db.Model):
             "id":self.id,
             "full_name":self.full_name,
             "email":self.email,
-            "adress":self.adress,
+            "address":self.address,
             "phone":self.phone,
         }
